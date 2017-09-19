@@ -13,8 +13,8 @@
     }
   },
   "dependencies": {
-    "node-persistent-queue": "^0.2.0",
-    "shallowequal": "^1.0.1"
+    "node-persistent-queue": "0.2.0",
+    "shallowequal": "1.0.1"
   },
   "repository": "https://github.com/damoclark/node-red-contrib-msg-queue",
   "bugs": "https://github.com/damoclark/node-red-contrib-msg-queue/issues",
