@@ -247,6 +247,20 @@ module.exports = function (RED) {
 			}
 		}
 
+		function openDb()
+		{
+			queue.open()
+			.then(function() {
+				node.log("Opened " + node.sqlite + " successfully.") ;
+			})
+			.catch(function(err) {
+				node.error("Queue failed to open " + node.sqlite, err);
+				openDb();
+				// @todo Check does this handle sqlite open error condition accordingly to node-red framework
+			}) ;
+
+		}
+
 		/**
 		 * Determine the status based on 'status' msg
 		 *
@@ -296,14 +310,7 @@ module.exports = function (RED) {
 		}
 
 		// Open the database
-		queue.open()
-		.then(function() {
-			node.log("Opened " + node.sqlite + " successfully.") ;
-		})
-		.catch(function(err) {
-			node.error("Queue failed to open " + node.sqlite, err);
-			// @todo Check does this handle sqlite open error condition accordingly to node-red framework
-		}) ;
+		openDb();
 
 		// Once the sqlite db is open, set our event handlers for messages
 		queue.on('open',function() {
