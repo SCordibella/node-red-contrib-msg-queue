@@ -95,8 +95,10 @@ module.exports = function (RED) {
 		var queue = new Queue(this.sqlite) ;
 
 		// Send messages from the queue downstream
-		queue.on('next',function(msg) {
-			node.send(msg.job) ;
+		queue.on('next',function(msg) 
+		{
+			if(typeof(msg) !== "undefined")
+				node.send(msg.job);
 			queue.done() ;
 		}) ;
 
